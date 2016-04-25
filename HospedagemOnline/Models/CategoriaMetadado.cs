@@ -8,7 +8,7 @@ namespace HospedagemOnline.Models
 {
 
     [MetadataType(typeof(CategoriaMetadado))]
-    public partial class Categoria { }
+    //public partial class Categoria { }
 
     public class CategoriaMetadado
     {

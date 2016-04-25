@@ -7,7 +7,7 @@ using System.Web;
 namespace HospedagemOnline.Models
 {
     [MetadataType(typeof(EstabelecimentoMetadado))]
-    public partial class Estabelecimento { }
+   // public partial class Estabelecimento { }
 
     public class EstabelecimentoMetadado
     {

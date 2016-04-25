@@ -4,137 +4,136 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HospedagemBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Categoria">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descricao" Type="varchar" MaxLength="40" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Cidade">
-          <Key>
-            <PropertyRef Name="IdCidade" />
-          </Key>
-          <Property Name="IdCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="UF" Type="varchar" MaxLength="2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Estabelecimento">
-          <Key>
-            <PropertyRef Name="IdEstab" />
-          </Key>
-          <Property Name="IdEstab" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdCidade" Type="int" Nullable="false" />
-          <Property Name="IdCategoria" Type="int" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Endereco" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Telefone" Type="varchar" MaxLength="11" Nullable="false" />
-          <Property Name="Site" Type="varchar" MaxLength="40" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Quarto">
-          <Key>
-            <PropertyRef Name="IdEstab" />
-            <PropertyRef Name="IdQuarto" />
-          </Key>
-          <Property Name="IdEstab" Type="int" Nullable="false" />
-          <Property Name="IdQuarto" Type="int" Nullable="false" />
-          <Property Name="idTipoQuarto" Type="int" Nullable="false" />
-          <Property Name="Numero" Type="int" Nullable="false" />
-          <Property Name="Disponivel" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TipoQuarto">
-          <Key>
-            <PropertyRef Name="IdTipoQuarto" />
-          </Key>
-          <Property Name="IdTipoQuarto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descricao" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="ValorDiraria" Type="float" Nullable="false" />
-          <Property Name="CafeManha" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="IDUsuario" />
-          </Key>
-          <Property Name="IDUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Login" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Senha" Type="varchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <Association Name="fk_estabelecimento_categoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
-          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="Estabelecimento">
-              <PropertyRef Name="IdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_estabelecimento_cidade">
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
-          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cidade">
-              <PropertyRef Name="IdCidade" />
-            </Principal>
-            <Dependent Role="Estabelecimento">
-              <PropertyRef Name="IdCidade" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_quarto_estabelecimento">
-          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
-          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estabelecimento">
-              <PropertyRef Name="IdEstab" />
-            </Principal>
-            <Dependent Role="Quarto">
-              <PropertyRef Name="IdEstab" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_quarto_tipoquarto">
-          <End Role="TipoQuarto" Type="Self.TipoQuarto" Multiplicity="1" />
-          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoQuarto">
-              <PropertyRef Name="IdTipoQuarto" />
-            </Principal>
-            <Dependent Role="Quarto">
-              <PropertyRef Name="idTipoQuarto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="HospedagemBDModelStoreContainer">
-          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Quarto" EntityType="Self.Quarto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TipoQuarto" EntityType="Self.TipoQuarto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk_estabelecimento_categoria" Association="Self.fk_estabelecimento_categoria">
-            <End Role="Categoria" EntitySet="Categoria" />
-            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
-          </AssociationSet>
-          <AssociationSet Name="fk_estabelecimento_cidade" Association="Self.fk_estabelecimento_cidade">
-            <End Role="Cidade" EntitySet="Cidade" />
-            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
-          </AssociationSet>
-          <AssociationSet Name="fk_quarto_estabelecimento" Association="Self.fk_quarto_estabelecimento">
-            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
-            <End Role="Quarto" EntitySet="Quarto" />
-          </AssociationSet>
-          <AssociationSet Name="fk_quarto_tipoquarto" Association="Self.fk_quarto_tipoquarto">
-            <End Role="TipoQuarto" EntitySet="TipoQuarto" />
-            <End Role="Quarto" EntitySet="Quarto" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="HospedagemBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="HospedagemBDModelStoreContainer">
+    <EntitySet Name="Categoria" EntityType="HospedagemBDModel.Store.Categoria" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cidade" EntityType="HospedagemBDModel.Store.Cidade" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Estabelecimento" EntityType="HospedagemBDModel.Store.Estabelecimento" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Quarto" EntityType="HospedagemBDModel.Store.Quarto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TipoQuarto" EntityType="HospedagemBDModel.Store.TipoQuarto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuario" EntityType="HospedagemBDModel.Store.Usuario" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="fk_estabelecimento_categoria" Association="HospedagemBDModel.Store.fk_estabelecimento_categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_estabelecimento_cidade" Association="HospedagemBDModel.Store.fk_estabelecimento_cidade">
+      <End Role="Cidade" EntitySet="Cidade" />
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_quarto_estabelecimento" Association="HospedagemBDModel.Store.fk_quarto_estabelecimento">
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+      <End Role="Quarto" EntitySet="Quarto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_quarto_tipoquarto" Association="HospedagemBDModel.Store.fk_quarto_tipoquarto">
+      <End Role="TipoQuarto" EntitySet="TipoQuarto" />
+      <End Role="Quarto" EntitySet="Quarto" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="varchar" Nullable="false" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Cidade">
+    <Key>
+      <PropertyRef Name="IdCidade" />
+    </Key>
+    <Property Name="IdCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="UF" Type="varchar" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="Estabelecimento">
+    <Key>
+      <PropertyRef Name="IdEstab" />
+    </Key>
+    <Property Name="IdEstab" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdCidade" Type="int" Nullable="false" />
+    <Property Name="IdCategoria" Type="int" Nullable="false" />
+    <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Endereco" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Telefone" Type="varchar" Nullable="false" MaxLength="11" />
+    <Property Name="Site" Type="varchar" Nullable="false" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Quarto">
+    <Key>
+      <PropertyRef Name="IdEstab" />
+      <PropertyRef Name="IdQuarto" />
+    </Key>
+    <Property Name="IdEstab" Type="int" Nullable="false" />
+    <Property Name="IdQuarto" Type="int" Nullable="false" />
+    <Property Name="idTipoQuarto" Type="int" Nullable="false" />
+    <Property Name="Numero" Type="int" Nullable="false" />
+    <Property Name="Disponivel" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoQuarto">
+    <Key>
+      <PropertyRef Name="IdTipoQuarto" />
+    </Key>
+    <Property Name="IdTipoQuarto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="ValorDiraria" Type="float" Nullable="false" />
+    <Property Name="CafeManha" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IDUsuario" />
+    </Key>
+    <Property Name="IDUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Login" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Senha" Type="varchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <Association Name="fk_estabelecimento_categoria">
+    <End Role="Categoria" Type="HospedagemBDModel.Store.Categoria" Multiplicity="1" />
+    <End Role="Estabelecimento" Type="HospedagemBDModel.Store.Estabelecimento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Estabelecimento">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_estabelecimento_cidade">
+    <End Role="Cidade" Type="HospedagemBDModel.Store.Cidade" Multiplicity="1" />
+    <End Role="Estabelecimento" Type="HospedagemBDModel.Store.Estabelecimento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidade">
+        <PropertyRef Name="IdCidade" />
+      </Principal>
+      <Dependent Role="Estabelecimento">
+        <PropertyRef Name="IdCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_quarto_estabelecimento">
+    <End Role="Estabelecimento" Type="HospedagemBDModel.Store.Estabelecimento" Multiplicity="1" />
+    <End Role="Quarto" Type="HospedagemBDModel.Store.Quarto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estabelecimento">
+        <PropertyRef Name="IdEstab" />
+      </Principal>
+      <Dependent Role="Quarto">
+        <PropertyRef Name="IdEstab" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_quarto_tipoquarto">
+    <End Role="TipoQuarto" Type="HospedagemBDModel.Store.TipoQuarto" Multiplicity="1" />
+    <End Role="Quarto" Type="HospedagemBDModel.Store.Quarto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoQuarto">
+        <PropertyRef Name="IdTipoQuarto" />
+      </Principal>
+      <Dependent Role="Quarto">
+        <PropertyRef Name="idTipoQuarto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HospedagemBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -278,72 +277,71 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HospedagemBDModelStoreContainer" CdmEntityContainer="HospedagemBDEntities">
-          <EntitySetMapping Name="Categoria">
-            <EntityTypeMapping TypeName="HospedagemBDModel.Categoria">
-              <MappingFragment StoreEntitySet="Categoria">
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cidade">
-            <EntityTypeMapping TypeName="HospedagemBDModel.Cidade">
-              <MappingFragment StoreEntitySet="Cidade">
-                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="UF" ColumnName="UF" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Estabelecimento">
-            <EntityTypeMapping TypeName="HospedagemBDModel.Estabelecimento">
-              <MappingFragment StoreEntitySet="Estabelecimento">
-                <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
-                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
-                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
-                <ScalarProperty Name="Site" ColumnName="Site" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Quarto">
-            <EntityTypeMapping TypeName="HospedagemBDModel.Quarto">
-              <MappingFragment StoreEntitySet="Quarto">
-                <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
-                <ScalarProperty Name="IdQuarto" ColumnName="IdQuarto" />
-                <ScalarProperty Name="idTipoQuarto" ColumnName="idTipoQuarto" />
-                <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="Disponivel" ColumnName="Disponivel" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoQuarto">
-            <EntityTypeMapping TypeName="HospedagemBDModel.TipoQuarto">
-              <MappingFragment StoreEntitySet="TipoQuarto">
-                <ScalarProperty Name="IdTipoQuarto" ColumnName="IdTipoQuarto" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="ValorDiraria" ColumnName="ValorDiraria" />
-                <ScalarProperty Name="CafeManha" ColumnName="CafeManha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="HospedagemBDModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Senha" ColumnName="Senha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HospedagemBDModelStoreContainer" CdmEntityContainer="HospedagemBDEntities">
+    <EntitySetMapping Name="Categoria">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.Categoria)">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cidade">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.Cidade)">
+        <MappingFragment StoreEntitySet="Cidade">
+          <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="UF" ColumnName="UF" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estabelecimento">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.Estabelecimento)">
+        <MappingFragment StoreEntitySet="Estabelecimento">
+          <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
+          <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
+          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+          <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quarto">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.Quarto)">
+        <MappingFragment StoreEntitySet="Quarto">
+          <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
+          <ScalarProperty Name="IdQuarto" ColumnName="IdQuarto" />
+          <ScalarProperty Name="idTipoQuarto" ColumnName="idTipoQuarto" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Disponivel" ColumnName="Disponivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoQuarto">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.TipoQuarto)">
+        <MappingFragment StoreEntitySet="TipoQuarto">
+          <ScalarProperty Name="IdTipoQuarto" ColumnName="IdTipoQuarto" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="ValorDiraria" ColumnName="ValorDiraria" />
+          <ScalarProperty Name="CafeManha" ColumnName="CafeManha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="IsTypeOf(HospedagemBDModel.Usuario)">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -357,7 +355,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

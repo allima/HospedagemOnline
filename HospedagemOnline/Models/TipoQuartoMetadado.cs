@@ -8,7 +8,7 @@ namespace HospedagemOnline.Models
 {
 
     [MetadataType(typeof(TipoQuartoMetadado))]
-    public partial class TipoQuarto { }
+   // public partial class TipoQuarto { }
 
     public class TipoQuartoMetadado
     {

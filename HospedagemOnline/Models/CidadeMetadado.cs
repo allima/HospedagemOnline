@@ -8,7 +8,7 @@ namespace HospedagemOnline.Models
 {
 
     [MetadataType(typeof(CidadeMetadado))]
-    public partial class Cidade { }
+   // public partial class Cidade { }
 
     public class CidadeMetadado
     {
