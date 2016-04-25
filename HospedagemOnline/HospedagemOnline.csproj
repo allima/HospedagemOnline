@@ -176,12 +176,15 @@
     <Compile Include="Models\Categoria.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriaMetadado.cs" />
     <Compile Include="Models\Cidade.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CidadeMetadado.cs" />
     <Compile Include="Models\Estabelecimento.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstabelecimentoMetadado.cs" />
     <Compile Include="Models\ModeloDados.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -200,12 +203,15 @@
     <Compile Include="Models\Quarto.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuartoMetadado.cs" />
     <Compile Include="Models\TipoQuarto.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TipoQuartoMetadado.cs" />
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>ModeloDados.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsuarioMetadado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
