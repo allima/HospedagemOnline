@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HospedagemBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="IdCidade" />
+          </Key>
+          <Property Name="IdCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UF" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estabelecimento">
+          <Key>
+            <PropertyRef Name="IdEstab" />
+          </Key>
+          <Property Name="IdEstab" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCidade" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Endereco" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Site" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quarto">
+          <Key>
+            <PropertyRef Name="IdEstab" />
+            <PropertyRef Name="IdQuarto" />
+          </Key>
+          <Property Name="IdEstab" Type="int" Nullable="false" />
+          <Property Name="IdQuarto" Type="int" Nullable="false" />
+          <Property Name="idTipoQuarto" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="Disponivel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoQuarto">
+          <Key>
+            <PropertyRef Name="IdTipoQuarto" />
+          </Key>
+          <Property Name="IdTipoQuarto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ValorDiraria" Type="float" Nullable="false" />
+          <Property Name="CafeManha" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_estabelecimento_categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Estabelecimento">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estabelecimento_cidade">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="IdCidade" />
+            </Principal>
+            <Dependent Role="Estabelecimento">
+              <PropertyRef Name="IdCidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_quarto_estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="IdEstab" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="IdEstab" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_quarto_tipoquarto">
+          <End Role="TipoQuarto" Type="Self.TipoQuarto" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoQuarto">
+              <PropertyRef Name="IdTipoQuarto" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="idTipoQuarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospedagemBDModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quarto" EntityType="Self.Quarto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoQuarto" EntityType="Self.TipoQuarto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_estabelecimento_categoria" Association="Self.fk_estabelecimento_categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estabelecimento_cidade" Association="Self.fk_estabelecimento_cidade">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_quarto_estabelecimento" Association="Self.fk_quarto_estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_quarto_tipoquarto" Association="Self.fk_quarto_tipoquarto">
+            <End Role="TipoQuarto" EntitySet="TipoQuarto" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospedagemBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estabelecimento" Relationship="Self.fk_estabelecimento_categoria" FromRole="Categoria" ToRole="Estabelecimento" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="IdCidade" />
+          </Key>
+          <Property Name="IdCidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estabelecimento" Relationship="Self.fk_estabelecimento_cidade" FromRole="Cidade" ToRole="Estabelecimento" />
+        </EntityType>
+        <EntityType Name="Estabelecimento">
+          <Key>
+            <PropertyRef Name="IdEstab" />
+          </Key>
+          <Property Name="IdEstab" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCidade" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Endereco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Site" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.fk_estabelecimento_categoria" FromRole="Estabelecimento" ToRole="Categoria" />
+          <NavigationProperty Name="Cidade" Relationship="Self.fk_estabelecimento_cidade" FromRole="Estabelecimento" ToRole="Cidade" />
+          <NavigationProperty Name="Quarto" Relationship="Self.fk_quarto_estabelecimento" FromRole="Estabelecimento" ToRole="Quarto" />
+        </EntityType>
+        <EntityType Name="Quarto">
+          <Key>
+            <PropertyRef Name="IdEstab" />
+            <PropertyRef Name="IdQuarto" />
+          </Key>
+          <Property Name="IdEstab" Type="Int32" Nullable="false" />
+          <Property Name="IdQuarto" Type="Int32" Nullable="false" />
+          <Property Name="idTipoQuarto" Type="Int32" Nullable="false" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="Disponivel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Estabelecimento" Relationship="Self.fk_quarto_estabelecimento" FromRole="Quarto" ToRole="Estabelecimento" />
+          <NavigationProperty Name="TipoQuarto" Relationship="Self.fk_quarto_tipoquarto" FromRole="Quarto" ToRole="TipoQuarto" />
+        </EntityType>
+        <EntityType Name="TipoQuarto">
+          <Key>
+            <PropertyRef Name="IdTipoQuarto" />
+          </Key>
+          <Property Name="IdTipoQuarto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValorDiraria" Type="Double" Nullable="false" />
+          <Property Name="CafeManha" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Quarto" Relationship="Self.fk_quarto_tipoquarto" FromRole="TipoQuarto" ToRole="Quarto" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_estabelecimento_categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Estabelecimento">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estabelecimento_cidade">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="IdCidade" />
+            </Principal>
+            <Dependent Role="Estabelecimento">
+              <PropertyRef Name="IdCidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_quarto_estabelecimento">
+          <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estabelecimento">
+              <PropertyRef Name="IdEstab" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="IdEstab" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_quarto_tipoquarto">
+          <End Role="TipoQuarto" Type="Self.TipoQuarto" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoQuarto">
+              <PropertyRef Name="IdTipoQuarto" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="idTipoQuarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospedagemBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" />
+          <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" />
+          <EntitySet Name="Quarto" EntityType="Self.Quarto" />
+          <EntitySet Name="TipoQuarto" EntityType="Self.TipoQuarto" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_estabelecimento_categoria" Association="Self.fk_estabelecimento_categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estabelecimento_cidade" Association="Self.fk_estabelecimento_cidade">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_quarto_estabelecimento" Association="Self.fk_quarto_estabelecimento">
+            <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_quarto_tipoquarto" Association="Self.fk_quarto_tipoquarto">
+            <End Role="TipoQuarto" EntitySet="TipoQuarto" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospedagemBDModelStoreContainer" CdmEntityContainer="HospedagemBDEntities">
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="HospedagemBDModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cidade">
+            <EntityTypeMapping TypeName="HospedagemBDModel.Cidade">
+              <MappingFragment StoreEntitySet="Cidade">
+                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estabelecimento">
+            <EntityTypeMapping TypeName="HospedagemBDModel.Estabelecimento">
+              <MappingFragment StoreEntitySet="Estabelecimento">
+                <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
+                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quarto">
+            <EntityTypeMapping TypeName="HospedagemBDModel.Quarto">
+              <MappingFragment StoreEntitySet="Quarto">
+                <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
+                <ScalarProperty Name="IdQuarto" ColumnName="IdQuarto" />
+                <ScalarProperty Name="idTipoQuarto" ColumnName="idTipoQuarto" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Disponivel" ColumnName="Disponivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoQuarto">
+            <EntityTypeMapping TypeName="HospedagemBDModel.TipoQuarto">
+              <MappingFragment StoreEntitySet="TipoQuarto">
+                <ScalarProperty Name="IdTipoQuarto" ColumnName="IdTipoQuarto" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="ValorDiraria" ColumnName="ValorDiraria" />
+                <ScalarProperty Name="CafeManha" ColumnName="CafeManha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="HospedagemBDModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
