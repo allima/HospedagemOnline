@@ -231,6 +231,18 @@
     <Content Include="Views\Usuario\Inserir.cshtml" />
     <Content Include="Views\Usuario\Alterar.cshtml" />
     <Content Include="Views\Usuario\Excluir.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\Categoria\Inserir.cshtml" />
+    <Content Include="Views\Categoria\Alterar.cshtml" />
+    <Content Include="Views\Categoria\Excluir.cshtml" />
+    <Content Include="Views\Cidade\Index.cshtml" />
+    <Content Include="Views\Cidade\Inserir.cshtml" />
+    <Content Include="Views\Cidade\Alterar.cshtml" />
+    <Content Include="Views\Cidade\Excluir.cshtml" />
+    <Content Include="Views\TipoQuarto\Index.cshtml" />
+    <Content Include="Views\TipoQuarto\Inserir.cshtml" />
+    <Content Include="Views\TipoQuarto\Alterar.cshtml" />
+    <Content Include="Views\TipoQuarto\Excluir.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -240,11 +252,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Categoria\" />
-    <Folder Include="Views\Cidade\" />
     <Folder Include="Views\Estabelecimento\" />
     <Folder Include="Views\Quarto\" />
-    <Folder Include="Views\TipoQuarto\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

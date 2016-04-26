@@ -1,0 +1,45 @@
+﻿@model IEnumerable<HospedagemOnline.Models.TipoQuarto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Inserir")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorDiraria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CafeManha)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorDiraria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CafeManha)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Alterar", new { id=item.IdTipoQuarto }) |
+          
+            @Html.ActionLink("Delete", "Excluir", new { id=item.IdTipoQuarto })
+        </td>
+    </tr>
+}
+
+</table>
