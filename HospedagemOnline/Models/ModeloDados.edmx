@@ -176,7 +176,7 @@
           </Key>
           <Property Name="IdEstab" Type="Int32" Nullable="false" />
           <Property Name="IdQuarto" Type="Int32" Nullable="false" />
-          <Property Name="idTipoQuarto" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoQuarto" Type="Int32" Nullable="false" />
           <Property Name="Numero" Type="Int32" Nullable="false" />
           <Property Name="Disponivel" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Estabelecimento" Relationship="Self.fk_quarto_estabelecimento" FromRole="Quarto" ToRole="Estabelecimento" />
@@ -245,7 +245,7 @@
               <PropertyRef Name="IdTipoQuarto" />
             </Principal>
             <Dependent Role="Quarto">
-              <PropertyRef Name="idTipoQuarto" />
+              <PropertyRef Name="IdTipoQuarto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -314,7 +314,7 @@
         <MappingFragment StoreEntitySet="Quarto">
           <ScalarProperty Name="IdEstab" ColumnName="IdEstab" />
           <ScalarProperty Name="IdQuarto" ColumnName="IdQuarto" />
-          <ScalarProperty Name="idTipoQuarto" ColumnName="idTipoQuarto" />
+          <ScalarProperty Name="IdTipoQuarto" ColumnName="idTipoQuarto" />
           <ScalarProperty Name="Numero" ColumnName="Numero" />
           <ScalarProperty Name="Disponivel" ColumnName="Disponivel" />
         </MappingFragment>

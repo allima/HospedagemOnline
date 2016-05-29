@@ -89,7 +89,7 @@ GO
 CREATE TABLE [dbo].[Quarto] (
     [IdEstab] int  NOT NULL,
     [IdQuarto] int  NOT NULL,
-    [idTipoQuarto] int  NOT NULL,
+    [IdTipoQuarto] int  NOT NULL,
     [Numero] int  NOT NULL,
     [Disponivel] bit  NOT NULL
 );

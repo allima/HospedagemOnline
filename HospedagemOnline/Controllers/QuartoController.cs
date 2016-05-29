@@ -15,11 +15,14 @@ namespace HospedagemOnline.Controllers
         public ActionResult Index()
         {
             var quarto = db.Quarto.ToList();
+           
             return View(quarto);
         }
 
         public ActionResult Inserir()
         {
+            ViewBag.IdEstab = new SelectList(db.Estabelecimento, "IdEstab", "Nome");
+            ViewBag.IdTipoQuarto = new SelectList(db.TipoQuarto, "IdTipoQuarto", "Descricao");
             return View();
 
         }
@@ -32,13 +35,16 @@ namespace HospedagemOnline.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.IdEstab = new SelectList(db.Estabelecimento, "IdEstab", "Nome",quarto.IdEstab);
+            ViewBag.IdTipoQuarto = new SelectList(db.TipoQuarto, "IdTipoQuarto", "Descricao",quarto.IdTipoQuarto);
             return View(quarto);
         }
 
         public ActionResult Alterar(long id)
         {
             Quarto quarto = db.Quarto.Find(id);
-
+            ViewBag.IdEstab = new SelectList(db.Estabelecimento, "IdEstab", "Nome", quarto.IdEstab);
+            ViewBag.IdTipoQuarto = new SelectList(db.TipoQuarto, "IdTipoQuarto", "Descricao", quarto.IdTipoQuarto);
             return View(quarto);
 
         }
@@ -51,6 +57,8 @@ namespace HospedagemOnline.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.IdEstab = new SelectList(db.Estabelecimento, "IdEstab", "Nome", quarto.IdEstab);
+            ViewBag.IdTipoQuarto = new SelectList(db.TipoQuarto, "IdTipoQuarto", "Descricao", quarto.IdTipoQuarto);
             return View(quarto);
 
         }

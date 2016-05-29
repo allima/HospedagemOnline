@@ -14,52 +14,60 @@ namespace HospedagemOnline.Controllers
 
         public ActionResult Index()
         {
+
             var estabelecimento = db.Estabelecimento.ToList();
             return View(estabelecimento);
         }
 
         public ActionResult Inserir()
         {
+            ViewBag.IdCidade = new SelectList(db.Cidade, "IdCidade", "Nome");
+            ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Descricao");
             return View();
 
         }
         [HttpPost]
-        public ActionResult Inserir(Estabelecimento usuario)
+        public ActionResult Inserir(Estabelecimento estabelecimento)
         {
             if (ModelState.IsValid)
             {
-                db.Estabelecimento.Add(usuario);
+                db.Estabelecimento.Add(estabelecimento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            ViewBag.IdCidade = new SelectList(db.Cidade, "IdCidade", "Nome", estabelecimento.IdCidade);
+            ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Descricao", estabelecimento.IdCategoria);
+            return View(estabelecimento);
         }
 
         public ActionResult Alterar(long id)
         {
-            Estabelecimento usuario = db.Estabelecimento.Find(id);
-
-            return View(usuario);
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+            ViewBag.IdCidade = new SelectList(db.Cidade, "IdCidade", "Nome", estabelecimento.IdCidade);
+            ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Descricao", estabelecimento.IdCategoria);
+            return View(estabelecimento);
 
         }
         [HttpPost]
-        public ActionResult Alterar(Estabelecimento usuario)
+        public ActionResult Alterar(Estabelecimento estabelecimento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(estabelecimento).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            ViewBag.IdCidade = new SelectList(db.Cidade, "IdCidade", "Nome", estabelecimento.IdCidade);
+            ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Descricao", estabelecimento.IdCategoria);
+            return View(estabelecimento);
 
         }
 
         public ActionResult Excluir(long id)
         {
-            Estabelecimento usuario = db.Estabelecimento.Find(id);
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
 
-            return View(usuario);
+            return View(estabelecimento);
 
         }
         [HttpPost, ActionName("Excluir")]
@@ -67,8 +75,8 @@ namespace HospedagemOnline.Controllers
         {
             try
             {
-                Estabelecimento usuario = db.Estabelecimento.Find(id);
-                db.Estabelecimento.Remove(usuario);
+                Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+                db.Estabelecimento.Remove(estabelecimento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
 

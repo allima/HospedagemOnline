@@ -247,6 +247,14 @@
     <Content Include="Views\TipoQuarto\Inserir.cshtml" />
     <Content Include="Views\TipoQuarto\Alterar.cshtml" />
     <Content Include="Views\TipoQuarto\Excluir.cshtml" />
+    <Content Include="Views\Quarto\Index.cshtml" />
+    <Content Include="Views\Quarto\Inserir.cshtml" />
+    <Content Include="Views\Quarto\Alterar.cshtml" />
+    <Content Include="Views\Quarto\Excluir.cshtml" />
+    <Content Include="Views\Estabelecimento\Index.cshtml" />
+    <Content Include="Views\Estabelecimento\Inserir.cshtml" />
+    <Content Include="Views\Estabelecimento\Alterar.cshtml" />
+    <Content Include="Views\Estabelecimento\Excluir.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -256,8 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Estabelecimento\" />
-    <Folder Include="Views\Quarto\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

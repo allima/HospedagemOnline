@@ -16,7 +16,7 @@ namespace HospedagemOnline.Models
     {
         public int IdEstab { get; set; }
         public int IdQuarto { get; set; }
-        public int idTipoQuarto { get; set; }
+        public int IdTipoQuarto { get; set; }
         public int Numero { get; set; }
         public bool Disponivel { get; set; }
     
