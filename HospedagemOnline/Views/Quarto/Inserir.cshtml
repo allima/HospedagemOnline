@@ -21,20 +21,13 @@
                 @Html.ValidationMessageFor(model => model.IdEstab, "", new { @class = "text-danger" })
             </div>
         </div>
+             
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdQuarto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdQuarto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdQuarto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.idTipoQuarto, "idTipoQuarto", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdTipoQuarto, "idTipoQuarto", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("idTipoQuarto", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.idTipoQuarto, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.IdTipoQuarto, "", new { @class = "text-danger" })
             </div>
         </div>
 
